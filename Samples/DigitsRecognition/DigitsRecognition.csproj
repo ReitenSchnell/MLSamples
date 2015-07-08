@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="DataPoint.cs" />
     <Compile Include="DataPointsReader.cs" />
+    <Compile Include="IDistance.cs" />
+    <Compile Include="ManhattanDistance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
