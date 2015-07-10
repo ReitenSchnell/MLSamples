@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicClassifier.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="DataPointsReader.cs" />
+    <Compile Include="IClassifier.cs" />
     <Compile Include="IDistance.cs" />
     <Compile Include="ManhattanDistance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
