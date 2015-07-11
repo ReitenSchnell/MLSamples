@@ -9,9 +9,17 @@ namespace Tests.DigitsRecognition
 {
     public class BasicClassifierTests
     {
+        private readonly IDistance distance = Substitute.For<IDistance>();
+        private readonly BasicClassifier classifier;
+
+        public BasicClassifierTests()
+        {
+            classifier = new BasicClassifier(distance);
+        }
+
+
         [Theory, AutoData]
-        public void should_predict_nearest_label([Frozen] IDistance distance, BasicClassifier classifier, 
-            List<DataPoint> dataPoints, List<int> pixels)
+        public void should_predict_nearest_label(List<DataPoint> dataPoints, List<int> pixels)
         {
             classifier.Train(dataPoints);
             distance.Between(dataPoints[0].Pixels, pixels).Returns(3);

@@ -38,6 +38,9 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.3.4.1\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.8.2.0\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
@@ -65,8 +68,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DigitsRecognition\RecognizerIntegrationTests.cs" />
+    <Compile Include="NSubDataAttribute.cs" />
     <Compile Include="DigitsRecognition\BasicClassifierTests.cs" />
     <Compile Include="DigitsRecognition\DataPointsReaderTests.cs" />
+    <Compile Include="DigitsRecognition\EvaluatorTests.cs" />
     <Compile Include="DigitsRecognition\ManhattanDistanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

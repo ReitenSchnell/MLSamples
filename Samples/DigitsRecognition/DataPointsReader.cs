@@ -5,7 +5,12 @@ using System.Linq;
 
 namespace DigitsRecognition
 {
-    public class DataPointsReader
+    public interface IDataPointsReader
+    {
+        List<DataPoint> ReadPoints(string path);
+    }
+
+    public class DataPointsReader : IDataPointsReader
     {
         public List<DataPoint> ReadPoints(string path)
         {
