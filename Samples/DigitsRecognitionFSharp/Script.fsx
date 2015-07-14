@@ -17,7 +17,7 @@ let trainingPath =  @"C:\Data\Repos\Data\trainingsample.csv"
 
 let trainingData = reader trainingPath
 
-let manhattanDistance (pixels1, pixels2) = 
+let manhattanDistance pixels1 pixels2 = 
     Array.zip pixels1 pixels2
     |> Array.map (fun(x,y) -> abs(x-y))
     |> Array.sum
@@ -31,3 +31,9 @@ let train (trainingSet:DataPoint[]) =
 
 let classifier = train trainingData
 
+let validationPath =  @"C:\Data\Repos\Data\validationsample.csv"
+let validationData = reader validationPath
+
+let predictedCorrectlyCount = 
+    validationData |>
+    Array.averageBy (fun x -> if classifier x.Pixels = x.Label then 1.0 else 0.0)
