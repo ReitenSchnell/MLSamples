@@ -21,20 +21,28 @@ let parseline (line:string) =
 let fileName = "SMSSpamCollection"
 let path = __SOURCE_DIRECTORY__ + @"..\..\Data\" + fileName
 
-//let dataset = 
-//    File.ReadAllLines path
-//    |> Array.map parseline
+let dataset = 
+    File.ReadAllLines path
+    |> Array.map parseline
 
-//let spamWithFree = 
-//    dataset
-//    |> Array.filter (fun(docType, _) -> docType = Spam)
-//    |> Array.filter (fun(_, content) -> content.Contains "FREE")
-//    |> Array.length
-//
-//let hamWithFree = 
-//    dataset
-//    |> Array.filter (fun(docType, _) -> docType = Ham)
-//    |> Array.filter (fun(_, content) -> content.Contains "FREE")
-//    |> Array.length
+let spamWithFree = 
+    dataset
+    |> Array.filter (fun(docType, _) -> docType = Spam)
+    |> Array.filter (fun(_, content) -> content.Contains "FREE")
+    |> Array.length
 
-hello "World"
+let hamWithFree = 
+    dataset
+    |> Array.filter (fun(docType, _) -> docType = Ham)
+    |> Array.filter (fun(_, content) -> content.Contains "FREE")
+    |> Array.length
+
+let spamSMS = 
+    dataset
+    |> Array.filter (fun(docType, _) -> docType = Spam)
+    |> Array.length
+
+let hamSMS =
+    dataset
+    |> Array.filter (fun(docType, _) -> docType = Ham)
+    |> Array.length
