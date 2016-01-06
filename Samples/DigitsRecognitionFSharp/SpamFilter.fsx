@@ -46,3 +46,7 @@ let hamSMS =
     dataset
     |> Array.filter (fun(docType, _) -> docType = Ham)
     |> Array.length
+
+        
+    
+
