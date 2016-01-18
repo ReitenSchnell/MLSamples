@@ -2,8 +2,6 @@
 
 module Classifier =
 
-    let hello name = printfn "Hello, %s" name
-
     type Token = string
     type Tokenizer = string -> Token Set
     type TokenizedDocument = Token Set

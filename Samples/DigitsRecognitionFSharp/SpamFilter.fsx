@@ -1,6 +1,7 @@
 ﻿open System.IO
 #load "NaiveBayes.fs"
 open NaiveBayes.Classifier
+open System.Text.RegularExpressions
 
 type DocType = 
     |Ham
@@ -47,6 +48,22 @@ let hamSMS =
     |> Array.filter (fun(docType, _) -> docType = Ham)
     |> Array.length
 
-        
+let matchWords = Regex(@"\w+")
+
+let wordsTokenizer(text:string) =
+    text.ToLowerInvariant()
+    |> matchWords.Matches
+    |> Seq.cast<Match>
+    |> Seq.map (fun m->m.Value)
+    |> Set.ofSeq
+    
+let validation = dataset.[0..999]
+let training = dataset.[1000..]
+
+let txtClassifier = train training wordsTokenizer (["txt"] |> set)
+
+validation
+|> Seq.averageBy(fun(docType, sms) -> if docType = txtClassifier sms then 1.0 else 0.0)
+|> printfn "Based on 'txt', correctly classified: %.3f"    
     
 
