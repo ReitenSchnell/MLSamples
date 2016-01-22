@@ -8,7 +8,7 @@ namespace Tests.DigitsRecognition
 {
     public class RecognizerIntegrationTests
     {
-        [Fact]
+        [Fact (Skip = "")]
         public void should_train_and_evaluate_model()
         {
             const string trainingSetPath = @"C:\Data\Repos\Data\trainingsample.csv";
