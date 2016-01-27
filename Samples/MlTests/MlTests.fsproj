@@ -76,8 +76,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpamFilterTests.fs" />
+    <Compile Include="NaiveBayesClassifierTests.fs" />
     <None Include="packages.config" />
+    <Compile Include="NaiveBayesWordOperationsTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DigitsRecognitionFSharp\DigitsRecognitionFSharp.fsproj">

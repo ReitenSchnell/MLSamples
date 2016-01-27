@@ -1,7 +1,8 @@
 ﻿open System.IO
 #load "NaiveBayes.fs"
+#load "WordOperations.fs"
 open NaiveBayes.Classifier
-open System.Text.RegularExpressions
+open NaiveBayes.WordOperations
 
 type DocType = 
     |Ham
@@ -25,6 +26,17 @@ let path = __SOURCE_DIRECTORY__ + @"..\..\Data\" + fileName
 let dataset = 
     File.ReadAllLines path
     |> Array.map parseline
+   
+let validation = dataset.[0..999]
+let training = dataset.[1000..]
+
+let txtClassifier = train training wordsTokenizer (["txt"] |> set)
+let result = validate validation txtClassifier
+
+let tokens = allTokens training wordsTokenizer
+let fullClassifier = train training wordsTokenizer tokens
+let fullResult = validate validation fullClassifier     
+
 
 let spamWithFree = 
     dataset
@@ -47,21 +59,5 @@ let hamSMS =
     dataset
     |> Array.filter (fun(docType, _) -> docType = Ham)
     |> Array.length
-
-let matchWords = Regex(@"\w+")
-
-let wordsTokenizer(text:string) =
-    text.ToLowerInvariant()
-    |> matchWords.Matches
-    |> Seq.cast<Match>
-    |> Seq.map (fun m->m.Value)
-    |> Set.ofSeq
-    
-let validation = dataset.[0..999]
-let training = dataset.[1000..]
-
-let txtClassifier = train training wordsTokenizer (["txt"] |> set)
-
-let result = validate validation txtClassifier    
 
 

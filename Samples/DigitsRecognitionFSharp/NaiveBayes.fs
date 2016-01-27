@@ -80,6 +80,12 @@ module Classifier =
         |> Seq.map tokenizer
         |> Set.unionMany
 
+    let allTokens (trainingSet:(_ * string)[])(tokenizer:Tokenizer) = 
+        trainingSet
+        |> Seq.map snd
+        |> vocabulary tokenizer
+    
+
 
 
 
