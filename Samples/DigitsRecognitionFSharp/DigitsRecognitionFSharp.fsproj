@@ -53,7 +53,6 @@
     <None Include="DigitsRecognition.fsx" />
     <None Include="SpamFilter.fsx" />
     <None Include="Seqs.fsx" />
-    <None Include="TestBayes.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

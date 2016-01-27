@@ -5,7 +5,7 @@ module Classifier =
     type Token = string
     type Tokenizer = string -> Token Set
     type TokenizedDocument = Token Set
-
+    
     type DocsGroup =
         { Proportion:float;  
           TokenFrequiencies:Map<Token, float>}
@@ -70,6 +70,15 @@ module Classifier =
         let groups = learn docs tokenizer classificationTokens
         let classifier = classify groups tokenizer
         classifier
+
+    let validate (validationSet:(_ * string)[])(classifier:(string -> _)) =
+        validationSet
+        |> Seq.averageBy(fun(docType, sms) -> if docType = classifier sms then 1.0 else 0.0)    
+
+    let vocabulary (tokenizer:Tokenizer) (corpus:string seq) =
+        corpus
+        |> Seq.map tokenizer
+        |> Set.unionMany
 
 
 

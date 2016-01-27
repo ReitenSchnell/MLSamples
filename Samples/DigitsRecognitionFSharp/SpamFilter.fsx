@@ -62,8 +62,6 @@ let training = dataset.[1000..]
 
 let txtClassifier = train training wordsTokenizer (["txt"] |> set)
 
-validation
-|> Seq.averageBy(fun(docType, sms) -> if docType = txtClassifier sms then 1.0 else 0.0)
-|> printfn "Based on 'txt', correctly classified: %.3f"    
-    
+let result = validate validation txtClassifier    
+
 
