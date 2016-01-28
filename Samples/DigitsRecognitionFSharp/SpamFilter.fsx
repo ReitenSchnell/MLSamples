@@ -38,26 +38,4 @@ let fullClassifier = train training wordsTokenizer tokens
 let fullResult = validate validation fullClassifier     
 
 
-let spamWithFree = 
-    dataset
-    |> Array.filter (fun(docType, _) -> docType = Spam)
-    |> Array.filter (fun(_, content) -> content.Contains "FREE")
-    |> Array.length
-
-let hamWithFree = 
-    dataset
-    |> Array.filter (fun(docType, _) -> docType = Ham)
-    |> Array.filter (fun(_, content) -> content.Contains "FREE")
-    |> Array.length
-
-let spamSMS = 
-    dataset
-    |> Array.filter (fun(docType, _) -> docType = Spam)
-    |> Array.length
-
-let hamSMS =
-    dataset
-    |> Array.filter (fun(docType, _) -> docType = Ham)
-    |> Array.length
-
 

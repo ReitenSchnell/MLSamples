@@ -1,10 +1,7 @@
 ﻿namespace NaiveBayes
+open NaiveBayes.WordOperations
 
-module Classifier =
-
-    type Token = string
-    type Tokenizer = string -> Token Set
-    type TokenizedDocument = Token Set
+module Classifier =    
     
     type DocsGroup =
         { Proportion:float;  
@@ -75,15 +72,7 @@ module Classifier =
         validationSet
         |> Seq.averageBy(fun(docType, sms) -> if docType = classifier sms then 1.0 else 0.0)    
 
-    let vocabulary (tokenizer:Tokenizer) (corpus:string seq) =
-        corpus
-        |> Seq.map tokenizer
-        |> Set.unionMany
-
-    let allTokens (trainingSet:(_ * string)[])(tokenizer:Tokenizer) = 
-        trainingSet
-        |> Seq.map snd
-        |> vocabulary tokenizer
+    
     
 
 

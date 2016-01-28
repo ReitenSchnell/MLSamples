@@ -17,3 +17,17 @@ let ``Should tokenize string by words and leave them fully cased`` () =
     let result = casedTokenizer text
     result =! set ["foo"; "boo"; "text"; "TEXT"; "Foo"; "Boo"]
 
+[<Fact>]
+let ``Should create vocabulary`` () =
+    let corpus = [|"token1 token2"; "token3 token1"; "token3 token2"; "token4 token2"|] |> Array.ofSeq
+    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
+    let result = vocabulary tokenizer corpus
+    result =! set ["token1"; "token2"; "token3"; "token4"]
+
+[<Fact>]
+let ``Should collect all tokens`` () =
+    let docs = [|("label1", "token1 token2"); ("label1", "token3 token1"); ("label2", "token3 token2"); ("label2", "token4 token2")|]
+    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
+    let result = allTokens docs tokenizer
+    result =! set ["token1"; "token2"; "token3"; "token4"]
+

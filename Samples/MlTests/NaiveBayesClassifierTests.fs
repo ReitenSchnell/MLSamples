@@ -114,24 +114,3 @@ let ``Should validate model`` () =
     let classifier (txt:string) = "label1"    
     let result = validate docs classifier
     result =! 0.5
-
-[<Fact>]
-let ``Should create vocabulary`` () =
-    let corpus = [|"token1 token2"; "token3 token1"; "token3 token2"; "token4 token2"|] |> Array.ofSeq
-    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
-    let result = vocabulary tokenizer corpus
-    result =! set ["token1"; "token2"; "token3"; "token4"]
-
-[<Fact>]
-let ``Should collect all tokens`` () =
-    let docs = [|("label1", "token1 token2"); ("label1", "token3 token1"); ("label2", "token3 token2"); ("label2", "token4 token2")|]
-    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
-    let result = allTokens docs tokenizer
-    result =! set ["token1"; "token2"; "token3"; "token4"]
-    
-    
-    
-
-     
-
-

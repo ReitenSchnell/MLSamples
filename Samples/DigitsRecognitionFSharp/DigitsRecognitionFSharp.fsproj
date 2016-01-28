@@ -49,8 +49,8 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="NaiveBayes.fs" />
     <Compile Include="WordOperations.fs" />
+    <Compile Include="NaiveBayes.fs" />
     <None Include="DigitsRecognition.fsx" />
     <None Include="SpamFilter.fsx" />
     <None Include="Seqs.fsx" />
