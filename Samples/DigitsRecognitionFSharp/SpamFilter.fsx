@@ -1,6 +1,6 @@
 ﻿open System.IO
-#load "NaiveBayes.fs"
 #load "WordOperations.fs"
+#load "NaiveBayes.fs"
 open NaiveBayes.Classifier
 open NaiveBayes.WordOperations
 
@@ -30,12 +30,12 @@ let dataset =
 let validation = dataset.[0..999]
 let training = dataset.[1000..]
 
-let txtClassifier = train training wordsTokenizer (["txt"] |> set)
-let result = validate validation txtClassifier
+let tokens = allTokens training
+let casedTokens = casedTokens training
 
-let tokens = allTokens training wordsTokenizer
-let fullClassifier = train training wordsTokenizer tokens
-let fullResult = validate validation fullClassifier     
+let simple = evaluate dataset wordsTokenizer (["txt"] |> set)
+let full = evaluate dataset wordsTokenizer tokens
+let cased = evaluate dataset casedTokenizer casedTokens
 
 
 

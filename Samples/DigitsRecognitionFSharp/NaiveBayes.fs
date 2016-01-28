@@ -72,7 +72,12 @@ module Classifier =
         validationSet
         |> Seq.averageBy(fun(docType, sms) -> if docType = classifier sms then 1.0 else 0.0)    
 
-    
+    let evaluate (dataSet:(_ * string)[])(tokenizer:Tokenizer)(classificationTokens: Token Set) =
+        let validation = dataSet.[0..999]
+        let training = dataSet.[1000..]
+        let classifier = train training tokenizer classificationTokens
+        validate validation classifier
+        
     
 
 

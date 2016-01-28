@@ -114,3 +114,5 @@ let ``Should validate model`` () =
     let classifier (txt:string) = "label1"    
     let result = validate docs classifier
     result =! 0.5
+
+

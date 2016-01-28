@@ -28,6 +28,13 @@ let ``Should create vocabulary`` () =
 let ``Should collect all tokens`` () =
     let docs = [|("label1", "token1 token2"); ("label1", "token3 token1"); ("label2", "token3 token2"); ("label2", "token4 token2")|]
     let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
-    let result = allTokens docs tokenizer
+    let result = allTokens docs
     result =! set ["token1"; "token2"; "token3"; "token4"]
+
+[<Fact>]
+let ``Should collect cased tokens`` () =
+    let docs = [|("label1", "Token1 token2"); ("label1", "Token3 token1"); ("label2", "token3 token2"); ("label2", "token4 token2")|]
+    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
+    let result = casedTokens docs
+    result =! set ["token1"; "token2"; "token3"; "token4"; "Token1"; "Token3"]
 
