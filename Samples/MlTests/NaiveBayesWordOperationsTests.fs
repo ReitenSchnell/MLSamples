@@ -38,3 +38,5 @@ let ``Should collect cased tokens`` () =
     let result = casedTokens docs
     result =! set ["token1"; "token2"; "token3"; "token4"; "Token1"; "Token3"]
 
+
+

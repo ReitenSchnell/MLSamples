@@ -77,6 +77,14 @@ module Classifier =
         let training = dataSet.[1000..]
         let classifier = train training tokenizer classificationTokens
         validate validation classifier
+
+    let top n (tokenizer:Tokenizer) (docs:string[]) =
+        let tokenized = docs|> Array.map tokenizer
+        let tokens = tokenized |> Set.unionMany
+        tokens
+        |> Seq.sortBy (fun t -> - countIn tokenized t)
+        |> Seq.take n
+        |> Set.ofSeq         
         
     
 

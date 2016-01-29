@@ -37,5 +37,6 @@ module WordOperations =
         trainingSet
         |> Seq.map snd
         |> vocabulary casedTokenizer
+    
            
 
