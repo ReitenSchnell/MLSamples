@@ -37,6 +37,21 @@ module WordOperations =
         trainingSet
         |> Seq.map snd
         |> vocabulary casedTokenizer
+
+    let phoneWords = Regex(@"0[7-9]\d{9}")
+    let phone(txt:string) =
+        match (phoneWords.IsMatch txt) with
+            | true -> "__PHONE__"
+            | false -> txt
+
+    let txtCode = Regex(@"\b\d{5}\b")
+    let txt(text:string) = 
+        match (txtCode.IsMatch text) with
+            | true -> "__TXT__"
+            | false -> text
+
+    let smartTokenizer = casedTokenizer >> Set.map phone >> Set.map txt    
+
     
            
 

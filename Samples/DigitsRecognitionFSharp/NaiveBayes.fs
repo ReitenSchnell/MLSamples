@@ -84,10 +84,12 @@ module Classifier =
         tokens
         |> Seq.sortBy (fun t -> - countIn tokenized t)
         |> Seq.take n
-        |> Set.ofSeq         
-        
-    
+        |> Set.ofSeq
 
-
-
-
+    let rare n (tokenizer:Tokenizer) (docs:string[]) =
+        let tokenized = docs|> Array.map tokenizer
+        let tokens = tokenized |> Set.unionMany
+        tokens
+        |> Seq.sortBy (fun t -> countIn tokenized t)
+        |> Seq.take n
+        |> Set.ofSeq

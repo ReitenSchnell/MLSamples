@@ -122,4 +122,11 @@ let ``Should return top 3 most used tokens`` () =
     let result = top 3 tokenizer docs
     result =! set["token1"; "token3"; "token4"]
 
+[<Fact>]
+let ``Should return top 3 most rare tokens`` () =
+    let docs = [|"token1 token2"; "token3 token4"; "token1 token3 token4"; "foo boo"; "moo"|]
+    let tokenizer (str:string) = Set.ofList(str.Split(' ')|> Array.toList)
+    let result = rare 3 tokenizer docs
+    result =! set["foo"; "boo"; "moo"]
+
 
