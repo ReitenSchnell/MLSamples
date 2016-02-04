@@ -12,7 +12,7 @@
     <AssemblyName>MlTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>MlTests</Name>
+    <Name>Tests</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>6cf7d916</NuGetPackageImportStamp>
@@ -81,9 +81,14 @@
     <Compile Include="NaiveBayesWordOperationsTests.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DigitsRecognitionFSharp\DigitsRecognitionFSharp.fsproj">
-      <Name>DigitsRecognitionFSharp</Name>
+    <ProjectReference Include="..\DigitsRecognitionFSharp\DigitsRecognition.fsproj">
+      <Name>DigitsRecognition</Name>
       <Project>{24372f96-eeba-4f25-8d00-39a1c56f5760}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SpamFilter\SpamFilter.fsproj">
+      <Name>SpamFilter</Name>
+      <Project>{7dc2b4cc-39a4-4cf0-8b93-8bc56bd6c6ae}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

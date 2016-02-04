@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitsRecognition", "DigitsRecognition\DigitsRecognition.csproj", "{F021551F-4BED-4D1B-BA75-7EAD21EB9BF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitsRecognitionCSharp", "DigitsRecognition\DigitsRecognitionCSharp.csproj", "{F021551F-4BED-4D1B-BA75-7EAD21EB9BF2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ECE5C81A-4E65-4156-BDEA-8677DFD4DA47}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,11 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ECE5C8
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{92449B65-4267-43F4-BDE1-87BE03AD0850}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsCSharp", "Tests\TestsCSharp.csproj", "{92449B65-4267-43F4-BDE1-87BE03AD0850}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DigitsRecognitionFSharp", "DigitsRecognitionFSharp\DigitsRecognitionFSharp.fsproj", "{24372F96-EEBA-4F25-8D00-39A1C56F5760}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DigitsRecognition", "DigitsRecognitionFSharp\DigitsRecognition.fsproj", "{24372F96-EEBA-4F25-8D00-39A1C56F5760}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MlTests", "MlTests\MlTests.fsproj", "{FB2DDE07-5301-4B0B-9871-16B13698D279}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "MlTests\Tests.fsproj", "{FB2DDE07-5301-4B0B-9871-16B13698D279}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SpamFilter", "SpamFilter\SpamFilter.fsproj", "{7DC2B4CC-39A4-4CF0-8B93-8BC56BD6C6AE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TypeProviders", "TypeProviders\TypeProviders.fsproj", "{54BA6FD9-8F3B-498B-A011-644246078608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +44,14 @@ Global
 		{FB2DDE07-5301-4B0B-9871-16B13698D279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB2DDE07-5301-4B0B-9871-16B13698D279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB2DDE07-5301-4B0B-9871-16B13698D279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC2B4CC-39A4-4CF0-8B93-8BC56BD6C6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC2B4CC-39A4-4CF0-8B93-8BC56BD6C6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC2B4CC-39A4-4CF0-8B93-8BC56BD6C6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC2B4CC-39A4-4CF0-8B93-8BC56BD6C6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54BA6FD9-8F3B-498B-A011-644246078608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54BA6FD9-8F3B-498B-A011-644246078608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54BA6FD9-8F3B-498B-A011-644246078608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54BA6FD9-8F3B-498B-A011-644246078608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

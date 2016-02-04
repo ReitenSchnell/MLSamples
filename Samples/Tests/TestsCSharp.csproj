@@ -84,9 +84,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DigitsRecognition\DigitsRecognition.csproj">
+    <ProjectReference Include="..\DigitsRecognition\DigitsRecognitionCSharp.csproj">
       <Project>{F021551F-4BED-4D1B-BA75-7EAD21EB9BF2}</Project>
-      <Name>DigitsRecognition</Name>
+      <Name>DigitsRecognitionCSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
