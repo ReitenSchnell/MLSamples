@@ -93,3 +93,30 @@ let error_eval =
     |> Seq.scan(fun(t0, t1) obs -> update hiRate (t0, t1) obs) (0.0, 0.0)
     |> Seq.map(model >> overallcost)
     |> Chart.Line
+
+let batchUpdate rate (theta0, theta1) (data:Obs seq) =
+    let updates = 
+        data
+        |> Seq.map(update rate (theta0, theta1))
+    let theta0' = updates |> Seq.averageBy fst
+    let theta1' = updates |> Seq.averageBy snd
+    theta0', theta1'
+
+let batch rate iters =
+    let rec search(t0, t1) i =
+        if i=0 then (t0,t1) else search(batchUpdate rate (t0,t1) data)(i-1)
+    search (0.0, 0.0) iters
+
+let batched_error rate =
+    Seq.unfold(fun(t0,t1) -> 
+        let (t0', t1') = batchUpdate rate (t0,t1) data
+        let err = model (t0,t1) |> overallcost
+        Some(err, (t0', t1')))(0.0, 0.0)
+    |> Seq.take 100
+    |> Seq.toList
+    |> Chart.Line    
+
+batched_error 0.000001
+
+batch 0.1 100
+
