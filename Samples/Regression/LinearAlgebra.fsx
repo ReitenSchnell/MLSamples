@@ -10,12 +10,6 @@ open MathNet
 open MathNet.Numerics.LinearAlgebra
 open MathNet.Numerics.LinearAlgebra.Double
 
-let A = vector[1.;2.;3.]
-let B = matrix[[1.;2.]; [3.;4.]; [5.;6.]]
-let C = A*A
-let D = A*B
-let E = A*B.Column(1)
-
 type Data = CsvProvider<"day.csv">
 let dataset = Data.Load("day.csv")
 let data = dataset.Rows
@@ -41,3 +35,45 @@ let estimate (Y:Vec)(X:Mat)=
 
 let estimatedTheta = estimate Y X
 let estimatedCost = cost estimatedTheta Y X
+
+let seed = 314159
+let rng = System.Random(seed)
+
+let shuffle(arr:'a[]) =
+    let arr = Array.copy arr
+    let l = arr.Length
+    for i in (l-1) .. -1 .. 1 do
+        let temp = arr.[i]
+        let j = rng.Next(0, i+1)
+        arr.[j] <- arr.[i]
+        arr.[i] <- temp
+    arr
+
+let training, validation =
+    let shuffled = 
+        data
+        |>Seq.toArray
+        |>shuffle
+    let size = 0.7*float(Array.length shuffled) |> int
+    shuffled.[..size], shuffled.[size+1..]
+
+type Obs = Data.Row
+type Model = Obs -> float
+type Featurizer = Obs -> float list
+
+let predictor (f:Featurizer)(theta:Vec) =
+    f >> vector >> (*) theta
+
+let evaluate(model:Model)(data:Obs seq) =
+    data
+    |> Seq.averageBy (fun obs -> abs(model obs - float obs.Cnt))
+
+let model (f:Featurizer)(data:Obs seq) =
+    let Yt, Xt =
+        data
+        |> Seq.toList
+        |> List.map(fun obs -> float obs.Cnt, f obs)
+        |> List.unzip
+    let theta = estimate(vector Yt)(matrix Xt)
+    let predict = predictor f theta
+    theta, predict
