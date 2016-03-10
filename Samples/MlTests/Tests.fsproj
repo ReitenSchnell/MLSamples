@@ -77,8 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NaiveBayesClassifierTests.fs" />
+    <Compile Include="StateMachine.fs" />
     <None Include="packages.config" />
     <Compile Include="NaiveBayesWordOperationsTests.fs" />
+    <None Include="StateScript.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DigitsRecognitionFSharp\DigitsRecognition.fsproj">
