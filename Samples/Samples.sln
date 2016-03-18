@@ -24,6 +24,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TypeProviders", "TypeProvid
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Regression", "Regression\Regression.fsproj", "{F02879EE-94F5-48D7-B881-9C939C768B66}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Unsupervised", "Unsupervised\Unsupervised.fsproj", "{432C97F7-4E14-4830-8D16-60212403DD33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{F02879EE-94F5-48D7-B881-9C939C768B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F02879EE-94F5-48D7-B881-9C939C768B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F02879EE-94F5-48D7-B881-9C939C768B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{432C97F7-4E14-4830-8D16-60212403DD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{432C97F7-4E14-4830-8D16-60212403DD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{432C97F7-4E14-4830-8D16-60212403DD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{432C97F7-4E14-4830-8D16-60212403DD33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
