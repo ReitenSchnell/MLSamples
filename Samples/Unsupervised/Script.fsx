@@ -3,6 +3,7 @@
 
 open System
 open System.IO
+open FSharp.Charting
 
 let folder = __SOURCE_DIRECTORY__
 let file = "userprofiles-toptags.txt"
@@ -25,5 +26,12 @@ headers
     let max = col |> Array.max
     printfn "%16s %8.1f %8.1f %8.1f" name avg min max)
 
+let labels = ChartTypes.LabelStyle(Interval = 0.25)
 
+headers
+|> Seq.mapi (fun i name ->
+    name,
+    observations |> Seq.averageBy (fun obs -> obs.[i]))
+|> Chart.Bar
+|> fun chart -> chart.WithXAxis(LabelStyle = labels)
 
