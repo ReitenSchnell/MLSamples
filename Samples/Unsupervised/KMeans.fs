@@ -27,15 +27,18 @@ module KMeans =
                 centroids
                 |> Array.minBy(fun (_, centroid) -> distance observation centroid)
                 |> fst
+
             let assignments' =
                 assignments
                 |> Array.map(fun (_, observation) -> 
                     let closestCentroidId = classifier observation
                     (closestCentroidId, observation))
+
             let changed = 
                 (assignments, assignments')
                 ||> Seq.zip
                 |> Seq.exists(fun ((oldClusterId, _), (newClusterId, _)) -> not (oldClusterId = newClusterId))
+            
             if changed
             then 
                 let centroids' = 
