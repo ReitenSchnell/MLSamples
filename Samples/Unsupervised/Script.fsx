@@ -6,6 +6,7 @@ open System
 open System.IO
 open FSharp.Charting
 open Unsupervized.KMeans
+open Unsupervized.Distance
 
 let folder = __SOURCE_DIRECTORY__
 let file = "userprofiles-toptags.txt"
@@ -37,19 +38,7 @@ headers
 |> Chart.Bar
 |> fun chart -> chart.WithXAxis(LabelStyle = labels)
 
-type Observation = float[]
-
 let features = headers.Length
-
-let distance(obs1:Observation)(obs2:Observation) =
-    (obs1, obs2)
-    ||> Seq.map2(fun u1 u2 -> pown(u1-u2) 2)
-    |> Seq.sum
-
-let centroidOf (cluster: Observation seq) =
-    Array.init features (fun f ->
-        cluster
-        |> Seq.averageBy (fun user -> user.[f]))
 
 let observations1 = 
     observations
@@ -57,7 +46,7 @@ let observations1 =
     |> Array.filter (fun x -> Array.sum x > 0.)
 
 let (clusters1, classifier1) =
-    let clustering = clusterize distance centroidOf
+    let clustering = clusterize distance (centroidOf features)
     let k = 5
     clustering observations1 k
 
@@ -67,6 +56,11 @@ clusters1
     profile
     |> Array.iteri (fun i value -> printfn "%16s %.1f" headers.[i] value))
 
+observations1
+|> Seq.countBy (fun obs -> classifier1 obs)
+|> Seq.iter (fun (clusterId, count) ->
+    printfn "Cluster %i has %i elements" clusterId count)
+
 Chart.Combine [
     for (id, profile) in clusters1 ->
         profile
@@ -74,14 +68,3 @@ Chart.Combine [
         |> Chart.Bar
     ]
     |> fun chart -> chart.WithXAxis(LabelStyle = labels)
-
-observations1
-|> Seq.countBy (fun obs -> classifier1 obs)
-|> Seq.iter (fun (clusterId, count) ->
-    printfn "Cluster %i has %i elements" clusterId count)
-
-
-
-
-
-
