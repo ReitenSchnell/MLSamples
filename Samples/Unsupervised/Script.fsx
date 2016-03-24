@@ -68,3 +68,31 @@ Chart.Combine [
         |> Chart.Bar
     ]
     |> fun chart -> chart.WithXAxis(LabelStyle = labels)
+
+let rowNormalizer (obs:Observation) : Observation =
+    let max = obs|>Seq.max
+    obs |> Array.map (fun tagUsage -> tagUsage/max)
+
+let observations2 = 
+    observations
+    |> Array.map(Array.map float)
+    |> Array.filter (fun x -> Array.sum x > 0.)
+    |> Array.map rowNormalizer
+
+let (clusters2, classifier2) =
+    let clustering = clusterize distance (centroidOf features)
+    let k = 5
+    clustering observations2 k
+
+observations2
+|> Seq.countBy (fun obs -> classifier2 obs)
+|> Seq.iter (fun (clusterId, count) ->
+    printfn "Cluster %i has %i elements" clusterId count)
+
+Chart.Combine [
+    for (id, profile) in clusters2 ->
+        profile
+        |> Seq.mapi (fun i value -> headers.[i], value)
+        |> Chart.Bar
+    ]
+    |> fun chart -> chart.WithXAxis(LabelStyle = labels)
