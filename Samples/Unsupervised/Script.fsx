@@ -6,7 +6,7 @@ open System
 open System.IO
 open FSharp.Charting
 open Unsupervized.KMeans
-open Unsupervized.Distance
+open Unsupervized.Helpers
 
 let folder = __SOURCE_DIRECTORY__
 let file = "userprofiles-toptags.txt"
@@ -69,10 +69,6 @@ Chart.Combine [
     ]
     |> fun chart -> chart.WithXAxis(LabelStyle = labels)
 
-let rowNormalizer (obs:Observation) : Observation =
-    let max = obs|>Seq.max
-    obs |> Array.map (fun tagUsage -> tagUsage/max)
-
 let observations2 = 
     observations
     |> Array.map(Array.map float)
@@ -96,3 +92,35 @@ Chart.Combine [
         |> Chart.Bar
     ]
     |> fun chart -> chart.WithXAxis(LabelStyle = labels)
+
+let k_ruleOfThumb = ruleofThumb (observations2.Length)
+
+let data = 
+    [1..25]
+    |> Seq.map(fun k ->
+        let value = 
+            [for _ in 1..10 ->
+                let (clusters,classifier) =
+                    let clustering = clusterize distance (centroidOf features)
+                    clustering observations2 k
+                AIC observations2 (clusters |> Seq.map snd) ]
+            |> List.average
+        k, value)
+    |> Seq.toArray
+
+Chart.Line data
+
+let (bestClusters, bestClassifier) =
+    let clustering = clusterize distance (centroidOf features)
+    let k = 10
+    seq {
+        for _ in 1..20 ->
+            clustering observations2 k
+    }
+    |> Seq.minBy (fun(cs, f) -> RSS observations2 (cs |> Seq.map snd))
+
+bestClusters
+|> Seq.iter(fun (id, profile) ->
+    printfn "Cluster %i" id
+    profile
+    |> Array.iteri(fun i value -> if value>0.2 then printfn "%16s %.1f" headers.[i] value))

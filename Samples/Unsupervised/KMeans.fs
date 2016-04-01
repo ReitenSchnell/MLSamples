@@ -1,6 +1,6 @@
 ﻿namespace Unsupervized
 
-module Distance =
+module Helpers =
     type Observation = float[]
 
     let distance(obs1:Observation)(obs2:Observation) =
@@ -13,8 +13,31 @@ module Distance =
             cluster
             |> Seq.averageBy (fun user -> user.[f]))
 
-module KMeans =
-    
+    let rowNormalizer (obs:Observation) : Observation =
+        let max = obs|>Seq.max
+        obs |> Array.map (fun tagUsage -> tagUsage/max)
+
+    let ruleofThumb (n:int) = sqrt(float n/2.)
+
+    let squareError (obs1:Observation)(obs2:Observation) =
+        (obs1, obs2)
+        ||> Seq.zip
+        |> Seq.sumBy(fun (x1,x2) -> pown (x1-x2) 2)
+
+    let RSS (dataset:Observation[]) centroids =
+        dataset
+        |> Seq.sumBy(fun obs ->
+            centroids
+            |> Seq.map (squareError obs)
+            |> Seq.min)
+
+    let AIC (dataset:Observation[]) centroids =
+        let k = centroids |> Seq.length
+        let m = dataset.[0] |> Seq.length
+        RSS dataset centroids + float(2*m*k)   
+        
+
+module KMeans =    
     let pickFrom size k =
         let rng = System.Random()
         let rec pick (set:int Set) =
