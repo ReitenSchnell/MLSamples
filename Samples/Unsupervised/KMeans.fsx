@@ -5,8 +5,8 @@
 open System
 open System.IO
 open FSharp.Charting
-open Unsupervized.KMeans
-open Unsupervized.Helpers
+open KMeans.Algorithm
+open KMeans.Helpers
 
 let folder = __SOURCE_DIRECTORY__
 let file = "userprofiles-toptags.txt"

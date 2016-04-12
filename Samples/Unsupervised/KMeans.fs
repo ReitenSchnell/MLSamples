@@ -1,4 +1,4 @@
-﻿namespace Unsupervized
+﻿namespace KMeans
 
 module Helpers =
     type Observation = float[]
@@ -37,7 +37,7 @@ module Helpers =
         RSS dataset centroids + float(2*m*k)   
         
 
-module KMeans =    
+module Algorithm =    
     let pickFrom size k =
         let rng = System.Random()
         let rec pick (set:int Set) =

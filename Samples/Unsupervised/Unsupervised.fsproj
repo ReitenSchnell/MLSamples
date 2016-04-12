@@ -59,22 +59,33 @@
   </Target>
   <ItemGroup>
     <Compile Include="KMeans.fs" />
-    <None Include="Script.fsx" />
+    <None Include="KMeans.fsx" />
     <Content Include="userprofiles-toptags.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
     <None Include="app.config" />
+    <Compile Include="PCA.fs" />
+    <None Include="PCA.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">
       <HintPath>..\packages\FSharp.Charting.0.90.13\lib\net40\FSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.3.1.2.5\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\packages\MathNet.Numerics.3.11.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MathNet.Numerics.FSharp">
+      <HintPath>..\packages\MathNet.Numerics.FSharp.3.11.0\lib\net40\MathNet.Numerics.FSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
