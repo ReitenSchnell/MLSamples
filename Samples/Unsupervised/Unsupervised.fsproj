@@ -67,6 +67,7 @@
     <None Include="app.config" />
     <Compile Include="PCA.fs" />
     <None Include="PCA.fsx" />
+    <None Include="Recommender.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Charting">
