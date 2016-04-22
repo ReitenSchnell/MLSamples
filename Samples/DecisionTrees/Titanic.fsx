@@ -75,7 +75,7 @@ let survivalByPricePaid =
     dataset.Rows
     |> Seq.groupBy(fun p -> p.Fare)
     |> Seq.iter (fun (price, passengers) -> 
-        printfn "%6.2F: %6.2f" price (survivalRate passengers))
+        printf "%6.2F: %6.2f" price (survivalRate passengers))
 
 let averageFare =
     dataset.Rows
@@ -129,3 +129,37 @@ let port(p:Passenger) =
 let updatedClassifier = betterLearn dataset.Rows port survived 
 dataset.Rows
 |> Seq.averageBy(fun p -> if p.Survived = updatedClassifier p then 1.0 else 0.0)
+
+let entropy extract data =
+    let size = data |> Seq.length
+    data
+    |> Seq.map (fun obs -> extract obs)
+    |> Seq.countBy id
+    |> Seq.map (fun (_, count) -> float count/float size)
+    |> Seq.sumBy (fun f -> if f > 0. then -f*log f else 0.)
+
+let splitEntropy extractLabel extractFeature data =
+    let dataWithValues =
+        data
+        |> Seq.filter(extractFeature |> hasData)
+    let size = dataWithValues |> Seq.length
+    dataWithValues
+    |> Seq.groupBy(extractFeature)
+    |> Seq.sumBy(fun (_, group) ->
+        let groupSize = group|> Seq.length
+        let probaGroup = float groupSize / float size
+        let groupEntropy = group |> entropy extractLabel
+        probaGroup * groupEntropy)
+
+let age (p:Passenger) =
+    if p.Age < 12.0
+    then Some("Yonger")
+    else Some("Older")
+
+let gender (p:Passenger) = Some(p.Sex)
+
+let h = dataset.Rows |> entropy survived
+dataset.Rows |> splitEntropy survived age |> printfn "By Age: %3f"
+dataset.Rows |> splitEntropy survived port |> printfn "By Port: %3f"
+dataset.Rows |> splitEntropy survived gender |> printfn "By Gender: %3f"
+ 
