@@ -26,3 +26,4 @@ dataset.Rows
 
 //display 1 tree
 
+let folds = dataset.Rows |> Seq.toArray |> kfold 10
