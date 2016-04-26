@@ -53,7 +53,21 @@ module Tree =
             let groupEntropy = group |> entropy extractLabel
             probaGroup * groupEntropy)
 
-    let rec growTree sample label features =
+    let entropyGainFilter sample label feature =
+        splitEntropy label feature sample - entropy label sample < 0.0
+
+    let leafSizeFilter minSize sample label feature =
+        sample
+        |> Seq.map feature
+        |> Seq.choose id
+        |> Seq.countBy id
+        |> Seq.forall(fun(_, groupsize) -> groupsize > minSize)
+
+    let rec growTree filters sample label features =
+        let features =
+            features
+            |> Map.filter(fun name feature ->
+                filters |> Seq.forall(fun filter -> filter sample label feature))
         if (Map.isEmpty features)
         then sample |> mostFrequentBy label |> Answer
         else
@@ -73,7 +87,7 @@ module Tree =
             let remainingFeatures = features |> Map.remove bestName
             let nextLevel = 
                 branches
-                |> Seq.map (fun(value, group) -> value, growTree group label remainingFeatures)
+                |> Seq.map (fun(value, group) -> value, growTree filters group label remainingFeatures)
                 |> Map.ofSeq
             Stump((bestName, bestFeature), defaultValue, nextLevel)
 
