@@ -77,3 +77,13 @@ module Tree =
                 |> Map.ofSeq
             Stump((bestName, bestFeature), defaultValue, nextLevel)
 
+    let rec display depth tree =
+        let padding = String.replicate(2*depth) " "
+        match tree with
+        | Answer(label) -> printfn " -> %A" label
+        | Stump((name,_), _, branches) ->
+            printfn ""
+            branches
+            |> Seq.iter(fun kv ->
+                printf "%s ? %s : %s" padding name kv.Key
+                display (depth+1) kv.Value)
