@@ -27,3 +27,19 @@ dataset.Rows
 //display 1 tree
 
 let folds = dataset.Rows |> Seq.toArray |> kfold 10
+
+let accuracy tree (sample : Passenger seq) =
+    sample
+    |> Seq.averageBy(fun p ->
+        if p.Survived = decide tree p then 1.0 else 0.0)
+
+let evaluateFolds =
+    let filters = [entropyGainFilter; leafSizeFilter 10]
+    let features = features |> Map.ofList
+    [for (training, validation) in folds ->
+        let tree = growTree filters training label features
+        let accuracyTraining = accuracy tree training
+        let accuracyValidation = accuracy tree validation
+        printfn "Training:%.3f, Validation:%.3f" accuracyTraining accuracyValidation
+        accuracyTraining, accuracyValidation]
+     
