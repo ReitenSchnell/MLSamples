@@ -42,4 +42,23 @@ let evaluateFolds =
         let accuracyValidation = accuracy tree validation
         printfn "Training:%.3f, Validation:%.3f" accuracyTraining accuracyValidation
         accuracyTraining, accuracyValidation]
+
+let forestFeatures = [
+    "Gender", fun (p:Passenger) -> p.Sex |> Some
+    "Class", fun p -> p.Pclass |> string |> Some
+    "Age", fun p -> if p.Age < 7.0 then Some("Yonger") else Some("Older")
+    "Port", fun p -> if p.Embarked = "" then None else Some(p.Embarked)] 
+
+let forestResults () =
+    let accuracy predictor (sample:Passenger seq) =
+        sample
+        |> Seq.averageBy(fun p -> if p.Survived = predictor p then 1.0 else 0.0)
+    [for (training, validation) in folds ->
+        let forest = growForest 1000 training label (forestFeatures |> Map.ofList)
+        let accuracyTraining = accuracy forest training
+        let accuracyValidaiton = accuracy forest validation
+        printfn "Training: %.3f, Validation: %.3f" accuracyTraining accuracyValidaiton
+        accuracyTraining, accuracyValidaiton ]
+
+forestResults()
      
