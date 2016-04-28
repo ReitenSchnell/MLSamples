@@ -28,6 +28,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Unsupervised", "Unsupervise
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DecisionTrees", "DecisionTrees\DecisionTrees.fsproj", "{F63D77F5-7E44-436D-95C1-E7B2506B896B}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SimpleGame", "SimpleGame\SimpleGame.fsproj", "{FA37C984-4664-4B84-8078-D6C80F23B57F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{F63D77F5-7E44-436D-95C1-E7B2506B896B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F63D77F5-7E44-436D-95C1-E7B2506B896B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F63D77F5-7E44-436D-95C1-E7B2506B896B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
