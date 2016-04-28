@@ -54,7 +54,7 @@ let forestResults () =
         sample
         |> Seq.averageBy(fun p -> if p.Survived = predictor p then 1.0 else 0.0)
     [for (training, validation) in folds ->
-        let forest = growForest 1000 training label (forestFeatures |> Map.ofList)
+        let forest = growForest 1000 training label (forestFeatures |> List.toArray)
         let accuracyTraining = accuracy forest training
         let accuracyValidaiton = accuracy forest validation
         printfn "Training: %.3f, Validation: %.3f" accuracyTraining accuracyValidaiton
