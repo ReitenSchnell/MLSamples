@@ -4,6 +4,7 @@ open System
 open System.Threading
 open Game
 open Rendering
+open Brain
 
 module Program =
 
@@ -26,17 +27,29 @@ module Program =
     
     [<EntryPoint>]
     let main argv = 
-        let rec loop (state:GameState) =
-            let decision = decide()
+        let rec loop (state:GameState, brain:Brain) =
+            let currentState = visibleState size state.Board state.Hero
+            let decision = Brain.decide brain currentState
+
             let player = state.Hero |> applyDecision size decision
             let board = updateBoard state.Board player
             let gain = computeGain state.Board player
             let score = state.Score + gain
+
+            let nextState = visibleState size board player
+            let experience = {
+                State = currentState;
+                Action = decision;
+                Reward = gain |> float;
+                NextState = nextState
+            }
+            let brain = learn brain experience
+
             renderScore score
             renderPlayer state.Hero player
             renderBoard state.Board board
             let updated = {Board = board; Hero = player; Score = score}
             Thread.Sleep 20
-            loop(updated)
-        let _ = loop(initialGameState)
+            loop(updated, brain)
+        let _ = loop(initialGameState, Map.empty)
         0 
