@@ -3,6 +3,7 @@
 open System
 open System.Threading
 open Game
+open Rendering
 
 module Program =
 
@@ -31,7 +32,9 @@ module Program =
             let board = updateBoard state.Board player
             let gain = computeGain state.Board player
             let score = state.Score + gain
-            printfn "%i" score
+            renderScore score
+            renderPlayer state.Hero player
+            renderBoard state.Board board
             let updated = {Board = board; Hero = player; Score = score}
             Thread.Sleep 20
             loop(updated)
