@@ -4,7 +4,7 @@ open System
 open Game
 
 module Brain =
-    type State = Dir * (Cell option) list
+    type State = Dir * int list
     type Experience = {
         State:State;
         Action:Act;
@@ -40,7 +40,7 @@ module Brain =
                 |Some(value) -> value
                 |None -> 0.0)
 
-    let tileAt (board:Board)(pos:Pos) = board.TryFind pos
+    let tileAt (board:Board)(pos:Pos) = board.[pos.Left, pos.Top]
 
     let offsets = 
         [

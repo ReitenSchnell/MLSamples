@@ -52,7 +52,7 @@
     <Compile Include="Rendering.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
-    <None Include="Test.fsx" />
+    <None Include="Headless.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

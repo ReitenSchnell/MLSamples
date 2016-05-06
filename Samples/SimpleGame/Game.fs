@@ -18,7 +18,7 @@ module Game =
         | Treasure
         | Trap
 
-    type Board = Map<Pos, Cell>
+    type Board = int[,]
     type GameState = {Board:Board; Hero:Hero; Score:int}
     type Size = {Width:int; Height:int}
 
@@ -57,20 +57,18 @@ module Game =
         let newDirection = hero.Direction |> takeDirection action
         {Position = hero.Position |> moveTo size newDirection; Direction = newDirection}
 
-    let treasureScore = 100
-    let trapScore = -100
+    let tileValues = [|-100; -50; 50; 100|]
 
     let computeGain(board:Board)(hero:Hero) =
         let currentPosition = hero.Position
-        match board.TryFind(currentPosition) with
-        | Some(cell) ->
-            match cell with
-            | Treasure -> treasureScore
-            | Trap -> trapScore
-        | None -> 0
+        let cellType = board.[currentPosition.Left, currentPosition.Top]
+        tileValues.[cellType]
+
+    let rng = System.Random()
 
     let updateBoard (board:Board)(hero:Hero) =
-        let currentPosition = hero.Position
-        board
-        |> Map.filter(fun p _ -> p <> currentPosition)
+        let pos = hero.Position
+        let updatedBoard = board |> Array2D.copy
+        updatedBoard.[pos.Left, pos.Top] <- rng.Next(tileValues.Length)
+        updatedBoard
 
