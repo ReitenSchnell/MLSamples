@@ -19,11 +19,24 @@ module Brain =
     let randomDecide() = choices.[rng.Next(choices|>Array.length)]
 
     let alpha = 0.2
+    let gamma = 0.5
+
+    let nextValue (brain:Brain) (state:State) =
+        choices
+        |> Seq.map(fun act ->
+            match brain.TryFind {State = state; Action = act} with
+            | Some(value) -> value
+            | None -> 0.)
+        |> Seq.max
+
     let learn(brain:Brain)(exp:Experience) =
         let strategy = {State = exp.State; Action = exp.Action}
+        let vNext = nextValue brain exp.NextState
         match brain.TryFind strategy with
-        | Some(value) -> brain.Add(strategy, (1.0 - alpha)*value + alpha*exp.Reward)
-        | None -> brain.Add(strategy, alpha*exp.Reward)
+        | Some(value) -> 
+            let value' = (1. - alpha)*value + alpha*(exp.Reward + vNext*gamma)
+            brain.Add(strategy, value')
+        | None -> brain.Add(strategy, alpha*(exp.Reward+gamma*vNext))
 
     let decide (brain:Brain)(state:State) =
         let knownStrategies =
