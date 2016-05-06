@@ -20,6 +20,7 @@ module Brain =
 
     let alpha = 0.2
     let gamma = 0.5
+    let epsilon = 0.05
 
     let nextValue (brain:Brain) (state:State) =
         choices
@@ -39,19 +40,22 @@ module Brain =
         | None -> brain.Add(strategy, alpha*(exp.Reward+gamma*vNext))
 
     let decide (brain:Brain)(state:State) =
-        let knownStrategies =
-            choices
-            |> Array.map(fun alt -> {State = state; Action = alt})
-            |> Array.filter(fun strategy -> brain.ContainsKey strategy)
-        match knownStrategies.Length with
-        |0 -> randomDecide()
-        |_ -> 
-            choices
-            |> Seq.maxBy(fun alt ->
-                let strategy = {State = state; Action = alt;}
-                match brain.TryFind strategy with
-                |Some(value) -> value
-                |None -> 0.0)
+        if rng.NextDouble() < epsilon
+        then randomDecide()
+        else
+            let knownStrategies =
+                choices
+                |> Array.map(fun alt -> {State = state; Action = alt})
+                |> Array.filter(fun strategy -> brain.ContainsKey strategy)
+            match knownStrategies.Length with
+            |0 -> randomDecide()
+            |_ -> 
+                choices
+                |> Seq.maxBy(fun alt ->
+                    let strategy = {State = state; Action = alt;}
+                    match brain.TryFind strategy with
+                    |Some(value) -> value
+                    |None -> 0.0)
 
     let tileAt (board:Board)(pos:Pos) = board.[pos.Left, pos.Top]
 

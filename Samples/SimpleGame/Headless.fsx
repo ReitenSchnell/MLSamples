@@ -38,9 +38,9 @@ let simulate (decide : Brain -> State -> Act) iters runs =
     [for run in 1..runs -> loop(initialGameState, Map.empty, 0)]
 
 printf "Random desision"
-let random = simulate(fun _ _ -> Game.Brain.randomDecide ()) 10000 20
+let random = simulate(fun _ _ -> Game.Brain.randomDecide ()) 100000 20
 printfn "Average score: %.0f" (random|>Seq.averageBy float)
 
 printf "Crude brain"
-let crudeBrain = simulate Game.Brain.decide 10000 20
+let crudeBrain = simulate Game.Brain.decide 100000 20
 printfn "Average score: %.0f" (crudeBrain|>Seq.averageBy float)
