@@ -51,6 +51,7 @@
   <ItemGroup>
     <None Include="DigitsRecognition.fsx" />
     <None Include="Seqs.fsx" />
+    <None Include="Performance.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
