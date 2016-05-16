@@ -30,6 +30,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DecisionTrees", "DecisionTr
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SimpleGame", "SimpleGame\SimpleGame.fsproj", "{FA37C984-4664-4B84-8078-D6C80F23B57F}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AccordModels", "AccordModels\AccordModels.fsproj", "{A64EE15C-3B8D-4B8A-82FB-DB4C8D732382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA37C984-4664-4B84-8078-D6C80F23B57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64EE15C-3B8D-4B8A-82FB-DB4C8D732382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64EE15C-3B8D-4B8A-82FB-DB4C8D732382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64EE15C-3B8D-4B8A-82FB-DB4C8D732382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64EE15C-3B8D-4B8A-82FB-DB4C8D732382}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
