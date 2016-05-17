@@ -67,6 +67,7 @@
   <ItemGroup>
     <None Include="Logistic.fsx" />
     <None Include="packages.config" />
+    <None Include="Svm.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
