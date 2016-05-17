@@ -62,4 +62,45 @@ let accuracy () =
     |> Array.average
 
 let acc = accuracy()
- 
+
+let one_vs_all() =
+    let features = 28*28
+    let labels = [0.0..9.0]
+    let models = 
+        labels
+        |> List.map(fun target ->
+            printfn "Learning label %.0f" target
+            let trainingLabels, trainingFeatures =
+                training
+                |> Array.map(fun (label, features) ->
+                    if label = target
+                    then (1., features)
+                    else (0., features))
+                |> Array.unzip
+            let model = LogisticRegression(features)
+            let learner = LogisticGradientDescent(model)
+            let mindelta = 0.001
+            let maxiters = 1000
+            let rec improve iter =
+                if iter = maxiters
+                then ignore()
+                else improve(iter+1)
+            improve(0)
+            target, model
+           )
+    let classifier(image:float[]) =
+        models
+        |> List.maxBy(fun(label,model) -> model.Compute image)
+        |> fun(label, confidence) -> label
+    classifier
+
+let overallaccuracy () =
+    let cls = one_vs_all()
+    validation
+    |> Array.map(fun(label,image) ->
+        let predicted = if cls(image) > 0.5 then 1. else 0.
+        let real = label
+        if predicted = real then 1. else 0.)
+    |> Array.average
+    
+let ovacc = overallaccuracy()         
